@@ -6,7 +6,7 @@
   "types": "./types/index.d.ts",
   "scripts": {
     "pretest": "npm run tsc",
-    "test": "mocha",
+    "test": "mocha -t 4000",
     "tsc": "tsc",
     "tscw": "tsc -w",
     "preversion": "npm run tsc",
@@ -34,10 +34,14 @@
   "homepage": "https://github.com/entitizer/models-builder-js#readme",
   "devDependencies": {
     "@types/node": "^7.0.5",
+    "bluebird": "^3.5.0",
+    "debug": "^2.6.3",
     "mocha": "^3.2.0",
+    "request": "^2.81.0",
     "typescript": "^2.2.1"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
     "wiki-entity": "^0.1.0"
   }
 }

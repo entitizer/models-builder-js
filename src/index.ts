@@ -1,6 +1,6 @@
 
 import { WikiEntity } from 'wiki-entity';
+import { Entity } from 'entitizer.models';
+import { wikiEntityToEntity } from './wikiEntityToEntity';
 
-export function convert(wikiEntity: WikiEntity) {
-
-}
+export const EntityBuilder = { fromWikiEntity: wikiEntityToEntity };
