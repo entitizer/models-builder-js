@@ -2,9 +2,38 @@
 import { WikiEntity } from 'wiki-entity';
 import { Entity, EntityTypeValue, EntityData, IPlainObject } from 'entitizer.models';
 
+export function getEntityData(wikiEntity: WikiEntity, type: EntityTypeValue): EntityData {
+    if (!wikiEntity.claims || !type) {
+        return null;
+    }
+    const types = ENTITY_DATA_PROPS[type];
+    if (!types) {
+        return null;
+    }
+    const data: EntityData = {};
+
+    for (var key in wikiEntity.claims) {
+        if (~types.indexOf(key) && wikiEntity.claims[key].values.length) {
+            data[key] = [];
+            wikiEntity.claims[key].values.forEach(value => {
+                const v: { value: string, label?: string } = { value: value.value_string || value.value.toString() };
+                if (PROP_PARSERS[key]) {
+                    v.value = PROP_PARSERS[key](v.value);
+                }
+                if (value.label && v.value !== value.label) {
+                    v.label = value.label;
+                }
+                data[key].push(v);
+            });
+        }
+    }
+
+    return data;
+}
+
 const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
     // Person
-    P: [
+    H: [
         // instance of
         'P31',
         // sex or gender
@@ -51,48 +80,19 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
 };
 
 const PROP_PARSERS = {
-    P570: dateParser,
-    P569: dateParser
+    // P570: dateParser,
+    // P569: dateParser
 };
 
-function dateParser(date: string): string {
-    if (date[0] === '+') {
-        date = date.substr(1);
-    }
+// function dateParser(date: string): string {
+//     if (date[0] === '+') {
+//         date = date.substr(1);
+//     }
 
-    const i = date.indexOf('T');
-    if (i > 0) {
-        date = date.substr(0, i);
-    }
+//     const i = date.indexOf('T');
+//     if (i > 0) {
+//         date = date.substr(0, i);
+//     }
 
-    return date;
-}
-
-export function getEntityData(wikiEntity: WikiEntity, type: EntityTypeValue): EntityData {
-    if (!wikiEntity.claims || !type) {
-        return null;
-    }
-    const types = ENTITY_DATA_PROPS[type];
-    if (!types) {
-        return null;
-    }
-    const data: EntityData = {};
-
-    for (var key in wikiEntity.claims) {
-        if (~types.indexOf(key) && wikiEntity.claims[key].values.length) {
-            data[key] = [];
-            wikiEntity.claims[key].values.forEach(value => {
-                const v: { value: string, label?: string } = { value: value.value_string || value.value.toString() };
-                if (PROP_PARSERS[key]) {
-                    v.value = PROP_PARSERS[key](v.value);
-                }
-                if (value.label && v.value !== value.label) {
-                    v.label = value.label;
-                }
-                data[key].push(v);
-            });
-        }
-    }
-
-    return data;
-}
+//     return date;
+// }

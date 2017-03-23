@@ -13,7 +13,7 @@ describe('EntityBuilder', function () {
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
                 assert.equal('Adrian Ursu', entity.name);
                 assert.equal('Q18548924', entity.wikiId);
-                assert.equal('P', entity.type);
+                assert.equal('H', entity.type);
 
                 // console.log(entity.toJSON());
             });
@@ -27,12 +27,12 @@ describe('EntityBuilder', function () {
                 assert.equal('Adrian Ursu', entity.name);
                 assert.equal('Q18548924', entity.wikiId);
                 assert.equal('Adrian Ursu (cântăreț)', entity.title);
-                assert.equal('P', entity.type);
+                assert.equal('H', entity.type);
 
                 // console.log(entity.toJSON());
             });
     });
-    it('fromWikiEntity en:complex', function () {
+    it('fromWikiEntity Albert Einstein: birth, death dates', function () {
         const lang = 'en';
         return wikiEntity.getEntities({ language: lang, ids: 'Q937', claims: 'all' })
             .then(function (entities) {
@@ -40,10 +40,27 @@ describe('EntityBuilder', function () {
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
                 assert.equal('Albert Einstein', entity.name);
                 assert.equal('Q937', entity.wikiId);
-                assert.equal('P', entity.type);
+                assert.equal('H', entity.type);
                 assert.equal('Q5', entity.data.P31[0].value);
+                assert.equal('1879-03-14', entity.data.P569[0].value);
 
                 // console.log(entity.toJSON().data);
+            });
+    });
+    it('fromWikiEntity Ștefan cel Mare (unknown dates)', function () {
+        const lang = 'ro';
+        return wikiEntity.getEntities({ language: lang, titles: 'Ștefan cel Mare', claims: 'item' })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('Ștefan cel Mare', entity.name);
+                assert.equal('H', entity.type);
+                // human
+                assert.equal('Q5', entity.data.P31[0].value);
+                // birth date
+                assert.equal('1429', entity.data.P569[0].value);
+
+                console.log(entity.toJSON().data);
             });
     });
 });

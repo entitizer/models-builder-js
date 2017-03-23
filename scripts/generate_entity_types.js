@@ -10,13 +10,21 @@ const DATA_MAP = {
     // Events: Event
     E: { list: ['Q1656682'], deep: 3 },
     // Persons: Human
-    P: { list: ['Q5'], deep: 3 },
+    H: { list: ['Q5'], deep: 2 },
     // Locations: Location (Q17334923)
     L: { list: ['Q17334923'], deep: 3 },
     // Organizations: Organization (Q43229)
     O: { list: ['Q43229'], deep: 3 },
     // Works: work (Q386724), intellectual work (Q15621286), creative work (Q17537576), fictitious entity (Q14897293), fictional character (Q95074), mythical character (Q4271324), publication (Q732577)
+    // Products: product (Q2424752)
+    P: { list: ['Q2424752'], deep: 3 }
 };
+
+function unique(list) {
+    return list.filter(function (item, pos, self) {
+        return self.indexOf(item) === pos;
+    });
+}
 
 function exploreIds(ids, deep, mainList, loopCount) {
     debug('eploring ids:', ids);
@@ -34,11 +42,9 @@ function exploreIds(ids, deep, mainList, loopCount) {
             for (var i = 1; i < lists.length; i++) {
                 lists[0] = lists[0].concat(lists[i]);
             }
-            return lists[0].filter(function (item, pos, self) {
-                return self.indexOf(item) === pos;
-            });
+            return unique(lists[0]);
         })
-        .delay(1000 * 3)
+        .delay(1000 * 1)
         .then(function (list) {
             mainList = mainList.concat(list);
             return exploreIds(list, deep, mainList, 1 + loopCount);
@@ -49,7 +55,9 @@ function buildResult() {
     const props = {};
 
     Object.keys(DATA_MAP).forEach(function (key) {
-        props[key] = exploreIds(DATA_MAP[key].list, DATA_MAP[key].deep).then(list => list.concat(DATA_MAP[key].list));
+        props[key] = exploreIds(DATA_MAP[key].list, DATA_MAP[key].deep)
+            .then(list => list.concat(DATA_MAP[key].list))
+            .then(unique);
     });
 
     return Promise.props(props);
@@ -74,10 +82,13 @@ function query(id) {
             url: 'https://query.wikidata.org/bigdata/namespace/wdq/sparql',
             method: 'GET',
             qs: {
-                query: `SELECT DISTINCT ?item
+                query: `SELECT DISTINCT ?item ?itemLabel
 WHERE
 {
 	?item wdt:P279 wd:${id} .
+    SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,de,fr,ru,es" 
+	}
 }
 ORDER BY ?item
 limit 1000`
@@ -87,11 +98,13 @@ limit 1000`
             if (error) {
                 return reject(error);
             }
-            if (!json.results || !json.results.bindings) {
-                console.log('result is null', json);
+            if (!json.results || !json.results.bindings || !json.results.bindings.length) {
+                // console.log('result is null', json);
                 return resolve([]);
             }
-            const ids = json.results.bindings.map(it => it.item.value.substr(it.item.value.indexOf('/entity/') + 8));
+
+            const ids = json.results.bindings.filter(it => it.itemLabel && it.itemLabel['xml:lang'] && it.itemLabel.value)
+                .map(it => it.item.value.substr(it.item.value.indexOf('/entity/') + 8));
             // ids.unshift(id);
             resolve(ids);
         });
