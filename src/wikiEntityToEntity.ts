@@ -2,6 +2,7 @@
 import { WikiEntity, WikidataPropertyValue } from 'wiki-entity';
 import { Entity } from 'entitizer.models';
 import { getEntityType } from './getEntityType';
+import { getEntityType as getEntityInstanceType } from './getEntityInstanceType';
 import * as _ from 'lodash';
 import { getEntityData } from './getEntityData';
 
@@ -11,6 +12,9 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     entity.lang = lang.toLowerCase();
     entity.wikiId = wikiEntity.id;
     entity.type = getEntityType(wikiEntity);
+    if (!entity.type) {
+        entity.type = getEntityInstanceType(wikiEntity);
+    }
     entity.name = wikiEntity.label;
     entity.description = wikiEntity.description;
     entity.aliases = wikiEntity.aliases;

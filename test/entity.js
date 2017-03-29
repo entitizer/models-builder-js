@@ -7,7 +7,7 @@ const assert = require('assert');
 describe('EntityBuilder', function () {
     it('fromWikiEntity en:simple', function () {
         const lang = 'en';
-        return wikiEntity.getEntities({ language: lang, ids: 'Q18548924', claims: 'none' })
+        return wikiEntity.getEntities({ language: lang, ids: 'Q18548924', claims: 'none', types: true })
             .then(function (entities) {
                 assert.equal(1, entities.length);
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
@@ -20,7 +20,7 @@ describe('EntityBuilder', function () {
     });
     it('fromWikiEntity ro:simple', function () {
         const lang = 'ro';
-        return wikiEntity.getEntities({ language: lang, ids: 'Q18548924', claims: 'none' })
+        return wikiEntity.getEntities({ language: lang, ids: 'Q18548924', claims: 'none', types: true })
             .then(function (entities) {
                 assert.equal(1, entities.length);
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
@@ -34,7 +34,7 @@ describe('EntityBuilder', function () {
     });
     it('fromWikiEntity Albert Einstein: birth, death dates', function () {
         const lang = 'en';
-        return wikiEntity.getEntities({ language: lang, ids: 'Q937', claims: 'all' })
+        return wikiEntity.getEntities({ language: lang, ids: 'Q937', claims: 'all', types: true })
             .then(function (entities) {
                 assert.equal(1, entities.length);
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
@@ -49,7 +49,7 @@ describe('EntityBuilder', function () {
     });
     it('fromWikiEntity Ștefan cel Mare (unknown dates)', function () {
         const lang = 'ro';
-        return wikiEntity.getEntities({ language: lang, titles: 'Ștefan cel Mare', claims: 'item' })
+        return wikiEntity.getEntities({ language: lang, titles: 'Ștefan cel Mare', claims: 'item', types: true })
             .then(function (entities) {
                 assert.equal(1, entities.length);
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
@@ -60,7 +60,20 @@ describe('EntityBuilder', function () {
                 // birth date
                 assert.equal('1429', entity.data.P569[0].value);
 
-                console.log(entity.toJSON().data);
+                // console.log(entity.toJSON().data);
+            });
+    });
+    it('fromWikiEntity IPhone 5 Product', function () {
+        const lang = 'en';
+        return wikiEntity.getEntities({ language: lang, ids: 'Q61504', claims: 'all', types: true })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('iPhone 5', entity.name);
+                // product
+                assert.equal('P', entity.type);
+
+                // console.log(entity.toJSON());
             });
     });
 });

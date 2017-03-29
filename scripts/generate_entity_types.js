@@ -16,8 +16,8 @@ const DATA_MAP = {
     // Organizations: Organization (Q43229)
     O: { list: ['Q43229'], deep: 3 },
     // Works: work (Q386724), intellectual work (Q15621286), creative work (Q17537576), fictitious entity (Q14897293), fictional character (Q95074), mythical character (Q4271324), publication (Q732577)
-    // Products: product (Q2424752)
-    P: { list: ['Q2424752'], deep: 3 }
+    // Products: product (Q2424752), brand (Q431289), model (Q17444171)
+    P: { list: ['Q2424752', 'Q431289', 'Q17444171'], deep: 3 }
 };
 
 function unique(list) {
