@@ -76,4 +76,31 @@ describe('EntityBuilder', function () {
                 // console.log(entity.toJSON());
             });
     });
+    it('fromWikiEntity Chisinau Location data', function () {
+        const lang = 'en';
+        return wikiEntity.getEntities({ language: lang, ids: 'Q21197', claims: 'all', types: true })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('Chișinău', entity.name);
+                // Location
+                assert.equal('L', entity.type);
+
+                // console.log(entity.data);
+            });
+    });
+
+    it('fromWikiEntity Facebook Organisation data', function () {
+        const lang = 'en';
+        return wikiEntity.getEntities({ language: lang, ids: 'Q380', claims: 'all', types: true })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('Facebook Inc.', entity.name);
+                // Organisation
+                assert.equal('O', entity.type);
+
+                // console.log(entity.data);
+            });
+    });
 });

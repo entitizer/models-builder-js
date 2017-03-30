@@ -13,9 +13,12 @@ export function getEntityData(wikiEntity: WikiEntity, type: EntityTypeValue): En
     const data: EntityData = {};
 
     for (var key in wikiEntity.claims) {
-        if (~types.indexOf(key) && wikiEntity.claims[key].values.length) {
+        const vlength = wikiEntity.claims[key].values.length;
+        if (~types.indexOf(key) && vlength) {
             data[key] = [];
-            wikiEntity.claims[key].values.forEach(value => {
+            const values = (!!PROP_LIMITS[key]) ? wikiEntity.claims[key].values.slice(0, PROP_LIMITS[key]) : wikiEntity.claims[key].values;
+
+            values.forEach(value => {
                 const v: { value: string, label?: string } = { value: value.value_string || value.value.toString() };
                 if (PROP_PARSERS[key]) {
                     v.value = PROP_PARSERS[key](v.value);
@@ -76,12 +79,103 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         'P20',
         // official website
         'P856'
+    ],
+    // Location
+    L: [
+        // instance of
+        'P31',
+        // image
+        'P18',
+        // country
+        'P17',
+        // capital of
+        'P1376',
+        // located in the administrative territorial entity
+        'P131',
+        // coordinate location
+        'P625',
+        // population
+        'P1082',
+        // elevation above sea level
+        'P2044',
+        // located in time zone
+        'P421',
+        // flag image
+        'P41',
+        // GeoNames ID
+        'P1566',
+        // postal code
+        'P281',
+        // capital
+        'P36',
+        // Facebook Places ID
+        'P1997',
+        // Twitter username
+        'P2002',
+        // Instagram username
+        'P2003',
+        // Facebook ID
+        'P2013',
+        // YouTube channel ID
+        'P2397',
+        // official website
+        'P856'
+    ],
+    // Organisation
+    O: [
+        // instance of
+        'P31',
+        // image
+        'P18',
+        // logo image
+        'P154',
+        // country
+        'P17',
+        // inception
+        'P571',
+        // founded by / founder
+        'P112',
+        // chairperson
+        'P488',
+        // membership
+        'P2124',
+        // headquarters location
+        'P159',
+        // CEO (chief executive officer)
+        'P169',
+        // chief operating officer
+        'P1789',
+        // owned by
+        'P127',
+        // headquarters location
+        'P159',
+        // employees
+        'P1128',
+        // Twitter username
+        'P2002',
+        // Instagram username
+        'P2003',
+        // Facebook ID
+        'P2013',
+        // YouTube channel ID
+        'P2397',
+        // official website
+        'P856'
     ]
 };
 
 const PROP_PARSERS = {
     // P570: dateParser,
     // P569: dateParser
+};
+
+const PROP_LIMITS = {
+    P17: 1,
+    P1376: 1,
+    P131: 1,
+    P1566: 1,
+    P1128: 1,
+    P2124: 1
 };
 
 // function dateParser(date: string): string {

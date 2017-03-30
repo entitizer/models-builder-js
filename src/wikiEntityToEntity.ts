@@ -17,10 +17,16 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     }
     entity.name = wikiEntity.label;
     entity.description = wikiEntity.description;
-    entity.aliases = wikiEntity.aliases;
     entity.pageId = wikiEntity.pageid;
     entity.extract = wikiEntity.extract;
     entity.title = wikiEntity.sitelinks && wikiEntity.sitelinks[lang];
+
+    entity.aliases = wikiEntity.aliases || [];
+    entity.aliases = entity.aliases.concat(wikiEntity.redirects || []);
+    if (entity.aliases.length) {
+        entity.aliases = _.uniq(entity.aliases);
+    }
+
     if (wikiEntity.claims) {
         const ids = Object.keys(wikiEntity.claims);
         if (ids.length) {
