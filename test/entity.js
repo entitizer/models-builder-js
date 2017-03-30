@@ -103,4 +103,18 @@ describe('EntityBuilder', function () {
                 // console.log(entity.data);
             });
     });
+
+    it('fromWikiEntity Euro 2016 Event data', function () {
+        const lang = 'en';
+        return wikiEntity.getEntities({ language: lang, ids: 'Q189571', claims: 'all', types: true })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('UEFA Euro 2016', entity.name);
+                // Event
+                assert.equal('E', entity.type);
+
+                // console.log(entity.data);
+            });
+    });
 });

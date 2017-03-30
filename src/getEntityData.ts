@@ -161,7 +161,47 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         'P2397',
         // official website
         'P856'
-    ]
+    ],
+    // Event
+    E: [
+        // instance of
+        'P31',
+        // genre
+        'P136',
+        // continent
+        'P30',
+        // start time
+        'P580',
+        // end time
+        'P582',
+        // organizer
+        'P664',
+        // location
+        'P276',
+        // point in time
+        'P585',
+        // winner
+        'P1346',
+
+
+        // image
+        'P18',
+        // country
+        'P17',
+        // coordinate location
+        'P625',
+
+        // Twitter username
+        'P2002',
+        // Instagram username
+        'P2003',
+        // Facebook ID
+        'P2013',
+        // YouTube channel ID
+        'P2397',
+        // official website
+        'P856'
+    ],
 };
 
 const PROP_PARSERS = {
@@ -175,7 +215,8 @@ const PROP_LIMITS = {
     P131: 1,
     P1566: 1,
     P1128: 1,
-    P2124: 1
+    P2124: 1,
+    P276: 1
 };
 
 // function dateParser(date: string): string {
