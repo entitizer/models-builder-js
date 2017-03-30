@@ -202,6 +202,38 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         // official website
         'P856'
     ],
+    // Product
+    P: [
+        // instance of
+        'P31',
+        // manufacturer
+        'P176',
+        // designed by
+        'P287',
+        // series
+        'P179',
+        // operating system
+        'P306',
+        // developer
+        'P178',
+
+
+        // image
+        'P18',
+        // logo image
+        'P154',
+
+        // Twitter username
+        'P2002',
+        // Instagram username
+        'P2003',
+        // Facebook ID
+        'P2013',
+        // YouTube channel ID
+        'P2397',
+        // official website
+        'P856'
+    ]
 };
 
 const PROP_PARSERS = {
@@ -211,6 +243,7 @@ const PROP_PARSERS = {
 
 const PROP_LIMITS = {
     P17: 1,
+    P18: 1,
     P1376: 1,
     P131: 1,
     P1566: 1,

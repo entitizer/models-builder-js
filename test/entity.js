@@ -117,4 +117,18 @@ describe('EntityBuilder', function () {
                 // console.log(entity.data);
             });
     });
+
+    it('fromWikiEntity Windows 7 Product data', function () {
+        const lang = 'en';
+        return wikiEntity.getEntities({ language: lang, ids: 'Q11215', claims: 'all', types: true })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('Windows 7', entity.name);
+                // Product
+                assert.equal('P', entity.type);
+
+                // console.log(entity.data);
+            });
+    });
 });
