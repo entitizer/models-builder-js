@@ -5,4 +5,4 @@ import { wikiEntityToEntity } from './wikiEntityToEntity';
 
 const EntityBuilder = { fromWikiEntity: wikiEntityToEntity }
 
-export { EntityBuilder as Entity }
+export { EntityBuilder }

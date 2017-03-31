@@ -1,6 +1,6 @@
 'use strict';
 
-const EntityBuilder = require('../lib').Entity;
+const EntityBuilder = require('../lib').EntityBuilder;
 const wikiEntity = require('wiki-entity');
 const assert = require('assert');
 
