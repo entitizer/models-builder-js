@@ -1,4 +1,5 @@
 
+// const debug = require('debug')('models-builder');
 import { WikiEntity, WikidataPropertyValue } from 'wiki-entity';
 import { Entity } from 'entitizer.models';
 import { getEntityType } from './getEntityType';
@@ -7,7 +8,7 @@ import * as _ from 'lodash';
 import { getEntityData } from './getEntityData';
 
 export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity {
-
+    // debug('wikiEntityToEntity:', lang, wikiEntity);
     const entity = Entity.create();
     entity.lang = lang.toLowerCase();
     entity.wikiId = wikiEntity.id;

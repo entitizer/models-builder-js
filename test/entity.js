@@ -1,12 +1,12 @@
 'use strict';
 
-const EntityBuilder = require('../lib').EntityBuilder;
+const EntityBuilder = require('../lib').Entity;
 const wikiEntity = require('wiki-entity');
 const assert = require('assert');
 
 describe('EntityBuilder', function () {
     it('fromWikiEntity en:simple', function () {
-        const lang = 'en';
+        const lang = 'ro';
         return wikiEntity.getEntities({ language: lang, ids: 'Q18548924', claims: 'none', types: true })
             .then(function (entities) {
                 assert.equal(1, entities.length);
@@ -14,8 +14,9 @@ describe('EntityBuilder', function () {
                 assert.equal('Adrian Ursu', entity.name);
                 assert.equal('Q18548924', entity.wikiId);
                 assert.equal('H', entity.type);
+                assert.ok(entity.title);
 
-                // console.log(entity.toJSON());
+                console.log(entity.toJSON());
             });
     });
     it('fromWikiEntity ro:simple', function () {
