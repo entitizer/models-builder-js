@@ -6,7 +6,7 @@ const assert = require('assert');
 
 describe('EntityBuilder', function () {
     it('fromWikiEntity en:simple', function () {
-        const lang = 'ro';
+        const lang = 'en';
         return wikiEntity.getEntities({ language: lang, ids: 'Q18548924', claims: 'none', types: true })
             .then(function (entities) {
                 assert.equal(1, entities.length);
@@ -14,9 +14,8 @@ describe('EntityBuilder', function () {
                 assert.equal('Adrian Ursu', entity.name);
                 assert.equal('Q18548924', entity.wikiId);
                 assert.equal('H', entity.type);
-                assert.ok(entity.title);
 
-                console.log(entity.toJSON());
+                // console.log(entity.toJSON());
             });
     });
     it('fromWikiEntity ro:simple', function () {
@@ -27,7 +26,7 @@ describe('EntityBuilder', function () {
                 const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
                 assert.equal('Adrian Ursu', entity.name);
                 assert.equal('Q18548924', entity.wikiId);
-                assert.equal('Adrian Ursu (cântăreț)', entity.title);
+                assert.equal('Adrian Ursu (cântăreț)', entity.wikiTitle);
                 assert.equal('H', entity.type);
 
                 // console.log(entity.toJSON());
@@ -60,6 +59,8 @@ describe('EntityBuilder', function () {
                 assert.equal('Q5', entity.data.P31[0].value);
                 // birth date
                 assert.equal('1429', entity.data.P569[0].value);
+                // has english wiki title
+                assert.ok(entity.enWikiTitle);
 
                 // console.log(entity.toJSON().data);
             });

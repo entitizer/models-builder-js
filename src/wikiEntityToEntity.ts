@@ -18,9 +18,14 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     }
     entity.name = wikiEntity.label;
     entity.description = wikiEntity.description;
-    entity.pageId = wikiEntity.pageid;
+    entity.wikiPageId = wikiEntity.pageid;
     entity.extract = wikiEntity.extract;
-    entity.title = wikiEntity.sitelinks && wikiEntity.sitelinks[lang];
+    if (wikiEntity.sitelinks) {
+        entity.wikiTitle = wikiEntity.sitelinks[lang];
+        if (lang !== 'en') {
+            entity.enWikiTitle = wikiEntity.sitelinks.en;
+        }
+    }
 
     entity.aliases = wikiEntity.aliases || [];
     entity.aliases = entity.aliases.concat(wikiEntity.redirects || []);
@@ -31,6 +36,7 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     if (wikiEntity.claims) {
         const ids = Object.keys(wikiEntity.claims);
         if (ids.length) {
+            // detect wikiImage
             for (var i = 0; i < ids.length; i++) {
                 const img: WikidataPropertyValue = _.find(wikiEntity.claims[ids[i]].values, { datatype: 'commonsMedia' });
                 if (img) {
