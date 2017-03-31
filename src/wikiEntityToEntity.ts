@@ -16,6 +16,9 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     if (!entity.type) {
         entity.type = getEntityInstanceType(wikiEntity);
     }
+    if (wikiEntity.types) {
+        entity.types = _.uniq(wikiEntity.types.filter(item => !/:(Thing|Agent)$/.test(item)));
+    }
     entity.name = wikiEntity.label;
     entity.description = wikiEntity.description;
     entity.wikiPageId = wikiEntity.pageid;
@@ -30,7 +33,7 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     entity.aliases = wikiEntity.aliases || [];
     entity.aliases = entity.aliases.concat(wikiEntity.redirects || []);
     if (entity.aliases.length) {
-        entity.aliases = _.uniq(entity.aliases);
+        entity.aliases = _.uniqBy(entity.aliases, _.lowerCase);
     }
 
     if (wikiEntity.claims) {

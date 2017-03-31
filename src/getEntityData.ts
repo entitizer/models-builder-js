@@ -78,7 +78,9 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         // place of death
         'P20',
         // official website
-        'P856'
+        'P856',
+        // Quora topic ID
+        'P3417'
     ],
     // Location
     L: [
@@ -119,7 +121,9 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         // YouTube channel ID
         'P2397',
         // official website
-        'P856'
+        'P856',
+        // Quora topic ID
+        'P3417'
     ],
     // Organisation
     O: [
@@ -160,7 +164,9 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         // YouTube channel ID
         'P2397',
         // official website
-        'P856'
+        'P856',
+        // Quora topic ID
+        'P3417'
     ],
     // Event
     E: [
@@ -200,7 +206,9 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         // YouTube channel ID
         'P2397',
         // official website
-        'P856'
+        'P856',
+        // Quora topic ID
+        'P3417'
     ],
     // Product
     P: [
@@ -232,7 +240,9 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         // YouTube channel ID
         'P2397',
         // official website
-        'P856'
+        'P856',
+        // Quora topic ID
+        'P3417'
     ]
 };
 
@@ -249,7 +259,10 @@ const PROP_LIMITS = {
     P1566: 1,
     P1128: 1,
     P2124: 1,
-    P276: 1
+    P276: 1,
+    P27: 1,
+    // occupation:
+    P106: 5
 };
 
 // function dateParser(date: string): string {
