@@ -1,6 +1,6 @@
 {
   "name": "entitizer.models-builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Entitizer models builder",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -42,7 +42,7 @@
     "typescript": "^2.2.1"
   },
   "dependencies": {
-    "entitizer.models": "^0.1.0",
+    "entitizer.models": "^0.1.1",
     "lodash": "^4.17.4",
     "wiki-entity": "^0.1.3"
   }
