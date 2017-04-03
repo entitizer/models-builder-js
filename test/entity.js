@@ -43,8 +43,9 @@ describe('EntityBuilder', function () {
                 assert.equal('H', entity.type);
                 assert.equal('Q5', entity.data.P31[0].value);
                 assert.equal('1879-03-14', entity.data.P569[0].value);
+                assert.equal('CH', entity.cc2);
 
-                // console.log(entity.toJSON().data);
+                // console.log(entity.toJSON());
             });
     });
     it('fromWikiEntity Ștefan cel Mare (unknown dates)', function () {
@@ -61,8 +62,9 @@ describe('EntityBuilder', function () {
                 assert.equal('1429', entity.data.P569[0].value);
                 // has english wiki title
                 assert.ok(entity.enWikiTitle);
+                assert.ok(!entity.cc2);
 
-                // console.log(entity.toJSON().data);
+                // console.log(entity.toJSON());
             });
     });
     it('fromWikiEntity IPhone 5 Product', function () {
@@ -74,6 +76,7 @@ describe('EntityBuilder', function () {
                 assert.equal('iPhone 5', entity.name);
                 // product
                 assert.equal('P', entity.type);
+                assert.ok(!entity.cc2);
 
                 // console.log(entity.toJSON());
             });
@@ -87,6 +90,7 @@ describe('EntityBuilder', function () {
                 assert.equal('Chișinău', entity.name);
                 // Location
                 assert.equal('L', entity.type);
+                assert.equal('MD', entity.cc2);
 
                 // console.log(entity.data);
             });
@@ -101,8 +105,9 @@ describe('EntityBuilder', function () {
                 assert.equal('Facebook Inc.', entity.name);
                 // Organisation
                 assert.equal('O', entity.type);
+                assert.equal('US', entity.cc2);
 
-                // console.log(entity.data);
+                // console.log(entity.toJSON());
             });
     });
 
@@ -115,8 +120,9 @@ describe('EntityBuilder', function () {
                 assert.equal('UEFA Euro 2016', entity.name);
                 // Event
                 assert.equal('E', entity.type);
+                assert.equal('FR', entity.cc2);
 
-                // console.log(entity.data);
+                // console.log(entity.toJSON());
             });
     });
 
@@ -129,8 +135,9 @@ describe('EntityBuilder', function () {
                 assert.equal('Windows 7', entity.name);
                 // Product
                 assert.equal('P', entity.type);
+                assert.ok(!entity.cc2);
 
-                // console.log(entity.data);
+                // console.log(entity.toJSON());
             });
     });
 });

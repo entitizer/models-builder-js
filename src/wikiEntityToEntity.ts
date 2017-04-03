@@ -6,6 +6,7 @@ import { getEntityType } from './getEntityType';
 import { getEntityType as getEntityInstanceType } from './getEntityInstanceType';
 import * as _ from 'lodash';
 import { getEntityData } from './getEntityData';
+import { getEntityCC2 } from './getEntityCountry';
 
 export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity {
     // debug('wikiEntityToEntity:', lang, wikiEntity);
@@ -48,6 +49,10 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
                 }
             }
             entity.data = getEntityData(wikiEntity, entity.type);
+        }
+
+        if (entity.type) {
+            entity.cc2 = getEntityCC2(wikiEntity, entity.type);
         }
     }
 
