@@ -28,6 +28,9 @@ describe('EntityBuilder', function () {
                 assert.equal('Q18548924', entity.wikiId);
                 assert.equal('Adrian Ursu (cântăreț)', entity.wikiTitle);
                 assert.equal('H', entity.type);
+                assert.equal(true, entity.rank > 0);
+
+                // console.log(entity.name, 'rank', entity.rank);
 
                 // console.log(entity.toJSON());
             });
@@ -44,6 +47,8 @@ describe('EntityBuilder', function () {
                 assert.equal('Q5', entity.data.P31[0].value);
                 assert.equal('1879-03-14', entity.data.P569[0].value);
                 assert.equal('CH', entity.cc2);
+
+                // console.log(entity.name, 'rank', entity.rank);
 
                 // console.log(entity.toJSON());
             });
@@ -64,6 +69,8 @@ describe('EntityBuilder', function () {
                 assert.ok(entity.enWikiTitle);
                 assert.ok(!entity.cc2);
 
+                // console.log(entity.name, 'rank', entity.rank);
+
                 // console.log(entity.toJSON());
             });
     });
@@ -78,6 +85,8 @@ describe('EntityBuilder', function () {
                 assert.equal('P', entity.type);
                 assert.ok(!entity.cc2);
 
+                // console.log(entity.name, 'rank', entity.rank);
+
                 // console.log(entity.toJSON());
             });
     });
@@ -91,6 +100,8 @@ describe('EntityBuilder', function () {
                 // Location
                 assert.equal('L', entity.type);
                 assert.equal('MD', entity.cc2);
+
+                // console.log(entity.name, 'rank', entity.rank);
 
                 // console.log(entity.data);
             });
@@ -107,6 +118,8 @@ describe('EntityBuilder', function () {
                 assert.equal('O', entity.type);
                 assert.equal('US', entity.cc2);
 
+                // console.log(entity.name, 'rank', entity.rank);
+
                 // console.log(entity.toJSON());
             });
     });
@@ -121,6 +134,8 @@ describe('EntityBuilder', function () {
                 // Event
                 assert.equal('E', entity.type);
                 assert.equal('FR', entity.cc2);
+
+                // console.log(entity.name, 'rank', entity.rank);
 
                 // console.log(entity.toJSON());
             });
@@ -137,7 +152,29 @@ describe('EntityBuilder', function () {
                 assert.equal('P', entity.type);
                 assert.ok(!entity.cc2);
 
+                // console.log(entity.name, 'rank', entity.rank);
+
                 // console.log(entity.toJSON());
+            });
+    });
+
+    it('toKeyringEntity Chisinau', function () {
+        const lang = 'en';
+        return wikiEntity.getEntities({ language: lang, ids: 'Q21197', claims: 'item', types: true })
+            .then(function (entities) {
+                assert.equal(1, entities.length);
+                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
+                assert.equal('Chișinău', entity.name);
+                // Location
+                assert.equal('L', entity.type);
+                assert.equal('MD', entity.cc2);
+
+                const kr = EntityBuilder.toKeyringEntity(entity);
+
+                assert.equal(kr.tp, 'L');
+                assert.equal(kr.cc, 'MD');
+
+                // console.log(kr);
             });
     });
 });

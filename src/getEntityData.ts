@@ -75,6 +75,8 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         'P2397',
         // date of death
         'P570',
+        // place of birth
+        'P19',
         // place of death
         'P20',
         // official website
@@ -151,8 +153,6 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         'P1789',
         // owned by
         'P127',
-        // headquarters location
-        'P159',
         // employees
         'P1128',
         // Twitter username

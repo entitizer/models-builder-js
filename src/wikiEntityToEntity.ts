@@ -7,6 +7,7 @@ import { getEntityType as getEntityInstanceType } from './getEntityInstanceType'
 import * as _ from 'lodash';
 import { getEntityData } from './getEntityData';
 import { getEntityCC2 } from './getEntityCountry';
+const atonic = require('atonic');
 
 export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity {
     // debug('wikiEntityToEntity:', lang, wikiEntity);
@@ -24,17 +25,20 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     entity.description = wikiEntity.description;
     entity.wikiPageId = wikiEntity.pageid;
     entity.extract = wikiEntity.extract;
+    entity.rank = 1;
     if (wikiEntity.sitelinks) {
         entity.wikiTitle = wikiEntity.sitelinks[lang];
         if (lang !== 'en') {
             entity.enWikiTitle = wikiEntity.sitelinks.en;
         }
+        entity.rank += Object.keys(wikiEntity.sitelinks).length;
     }
 
     entity.aliases = wikiEntity.aliases || [];
     entity.aliases = entity.aliases.concat(wikiEntity.redirects || []);
     if (entity.aliases.length) {
-        entity.aliases = _.uniqBy(entity.aliases, _.lowerCase);
+        entity.aliases = _.uniqBy(entity.aliases, al => atonic(al.toLowerCase()));
+        entity.rank += entity.aliases.length / 2;
     }
 
     if (wikiEntity.claims) {
@@ -54,7 +58,11 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
         if (entity.type) {
             entity.cc2 = getEntityCC2(wikiEntity, entity.type);
         }
+
+        entity.rank += ids.length;
     }
+
+    entity.rank = parseInt(entity.rank.toString());
 
     return entity;
 }
