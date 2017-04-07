@@ -70,4 +70,4 @@ export const ENTITY_PROPS = {
     manufacturer: 'P176',
     designedBy: 'P287',
     developer: 'P178'
-};
+}

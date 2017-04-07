@@ -1,6 +1,8 @@
 'use strict';
 
 const EntityBuilder = require('../lib').EntityBuilder;
+const EntityNames = require('../lib').EntityNames;
+const Entity = require('entitizer.models').Entity;
 const wikiEntity = require('wiki-entity');
 const assert = require('assert');
 
@@ -176,5 +178,20 @@ describe('EntityBuilder', function () {
 
                 // console.log(kr);
             });
+    });
+
+    it('formatEntityNames', function () {
+        let names = EntityNames.formatEntityNames(Entity.create({}));
+        assert.equal(0, names.length);
+        names = EntityNames.formatEntityNames(Entity.create({ name: 'name' }));
+        assert.equal(1, names.length);
+        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Name' }));
+        assert.equal(1, names.length);
+        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Năme' }));
+        assert.equal(1, names.length);
+        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name' }));
+        assert.equal(1, names.length);
+        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name', aliases: ['name2'] }));
+        assert.equal(2, names.length);
     });
 });
