@@ -2,28 +2,33 @@
 const atonic = require('atonic');
 import { Entity } from 'entitizer.models';
 
-export function formatEntityNames(entity: Entity): string[] {
-    let result = [];
+export function formatNames(entity: Entity): string[] {
+    let names = [];
 
     if (entity.name && entity.name.length) {
-        result.push(entity.name);
+        names.push(entity.name);
     }
     if (entity.wikiTitle && entity.wikiTitle.length) {
-        result.push(entity.wikiTitle);
+        names.push(entity.wikiTitle);
     }
     if (entity.abbr && entity.abbr.length) {
-        result.push(entity.abbr);
+        names.push(entity.abbr);
     }
     if (entity.aliases) {
-        result = result.concat(entity.aliases);
+        names = names.concat(entity.aliases);
     }
+
+    return filterNames(names);
+}
+
+export function filterNames(names: string[]): string[] {
     const keys = {};
-    return result.filter(item => {
-        item = formatUniqueName(item);
-        if (keys[item]) {
+    return names.filter(name => {
+        name = formatUniqueName(name);
+        if (keys[name]) {
             return false;
         }
-        keys[item] = true;
+        keys[name] = true;
         return true;
     });
 }
