@@ -3,7 +3,7 @@ import { WikiEntity } from 'wiki-entity';
 import { Entity } from 'entitizer.models';
 import { wikiEntityToEntity } from './wikiEntityToEntity';
 import { entityToKeyringEntity } from './entityToKeyringEntity';
-import * as EntityNames from './entityNames';
+import * as EntityNamesBuilder from './entityNamesBuilder';
 
 export * from './types';
 
@@ -12,4 +12,4 @@ const EntityBuilder = {
     toKeyringEntity: entityToKeyringEntity
 }
 
-export { EntityBuilder, EntityNames }
+export { EntityBuilder, EntityNamesBuilder }

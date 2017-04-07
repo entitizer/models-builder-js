@@ -1,7 +1,7 @@
 'use strict';
 
 const EntityBuilder = require('../lib').EntityBuilder;
-const EntityNames = require('../lib').EntityNames;
+const EntityNamesBuilder = require('../lib').EntityNamesBuilder;
 const Entity = require('entitizer.models').Entity;
 const wikiEntity = require('wiki-entity');
 const assert = require('assert');
@@ -180,18 +180,18 @@ describe('EntityBuilder', function () {
             });
     });
 
-    it('formatEntityNames', function () {
-        let names = EntityNames.formatEntityNames(Entity.create({}));
+    it('EntityNamesBuilder.formatNames', function () {
+        let names = EntityNamesBuilder.formatNames(Entity.create({}));
         assert.equal(0, names.length);
-        names = EntityNames.formatEntityNames(Entity.create({ name: 'name' }));
+        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name' }));
         assert.equal(1, names.length);
-        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Name' }));
+        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Name' }));
         assert.equal(1, names.length);
-        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Năme' }));
+        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Năme' }));
         assert.equal(1, names.length);
-        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name' }));
+        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name' }));
         assert.equal(1, names.length);
-        names = EntityNames.formatEntityNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name', aliases: ['name2'] }));
+        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name', aliases: ['name2'] }));
         assert.equal(2, names.length);
     });
 });
