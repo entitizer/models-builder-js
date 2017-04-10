@@ -8,7 +8,17 @@ export function getEntityType(wikiEntity: WikiEntity): EntityTypeValue {
         return null;
     }
 
-    const instanceOf = wikiEntity.claims.P31;
+    const type = getTypeByProp(wikiEntity, 'P31');
+    if (type) {
+        return type;
+    }
+
+    return getTypeByProp(wikiEntity, 'P279');
+}
+
+
+function getTypeByProp(wikiEntity: WikiEntity, prop: string): EntityTypeValue {
+    const instanceOf = wikiEntity.claims[prop];
 
     if (!instanceOf) {
         return null;
