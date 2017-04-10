@@ -160,38 +160,18 @@ describe('EntityBuilder', function () {
             });
     });
 
-    it('toKeyringEntity Chisinau', function () {
-        const lang = 'en';
-        return wikiEntity.getEntities({ language: lang, ids: 'Q21197', claims: 'item', types: true })
-            .then(function (entities) {
-                assert.equal(1, entities.length);
-                const entity = EntityBuilder.fromWikiEntity(entities[0], lang);
-                assert.equal('Chișinău', entity.name);
-                // Location
-                assert.equal('L', entity.type);
-                assert.equal('MD', entity.cc2);
-
-                const kr = EntityBuilder.toKeyringEntity(entity);
-
-                assert.equal(kr.tp, 'L');
-                assert.equal(kr.cc, 'MD');
-
-                // console.log(kr);
-            });
-    });
-
     it('EntityNamesBuilder.formatNames', function () {
-        let names = EntityNamesBuilder.formatNames(Entity.create({}));
+        let names = EntityNamesBuilder.formatNames({});
         assert.equal(0, names.length);
-        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name' }));
+        names = EntityNamesBuilder.formatNames({ name: 'name' });
         assert.equal(1, names.length);
-        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Name' }));
+        names = EntityNamesBuilder.formatNames({ name: 'name', wikiTitle: 'Name' });
         assert.equal(1, names.length);
-        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Năme' }));
+        names = EntityNamesBuilder.formatNames({ name: 'name', wikiTitle: 'Năme' });
         assert.equal(1, names.length);
-        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name' }));
+        names = EntityNamesBuilder.formatNames({ name: 'name', wikiTitle: 'Năme', abbr: 'name' });
         assert.equal(1, names.length);
-        names = EntityNamesBuilder.formatNames(Entity.create({ name: 'name', wikiTitle: 'Năme', abbr: 'name', aliases: ['name2'] }));
+        names = EntityNamesBuilder.formatNames({ name: 'name', wikiTitle: 'Năme', abbr: 'name', aliases: ['name2'] });
         assert.equal(2, names.length);
     });
 });

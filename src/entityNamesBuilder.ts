@@ -11,9 +11,9 @@ export function formatNames(entity: Entity): string[] {
     if (entity.wikiTitle && entity.wikiTitle.length) {
         names.push(entity.wikiTitle);
     }
-    if (entity.abbr && entity.abbr.length) {
-        names.push(entity.abbr);
-    }
+    // if (entity.abbr && entity.abbr.length) {
+    //     names.push(entity.abbr);
+    // }
     if (entity.aliases) {
         names = names.concat(entity.aliases);
     }

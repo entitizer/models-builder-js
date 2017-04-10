@@ -1,36 +1,36 @@
 
-import { IPlainObject } from 'entitizer.models';
+// import { IPlainObject } from 'entitizer.models';
 
-export type KeyringEntityLink = {
-    /**
-     * relation types. Wikidata property: P31, etc.
-     */
-    t: string[];
-    n?: string;
-}
+// export type KeyringEntityLink = {
+//     /**
+//      * relation types. Wikidata property: P31, etc.
+//      */
+//     t: string[];
+//     n?: string;
+// }
 
-export type KeyringEntity = {
-    /**
-     * Names joined by a |
-     */
-    n: string;
-    /**
-     * Entity type: "H" | "P" | "O" | "E" | "L"
-     */
-    tp: string;
-    /**
-     * Entity popularity
-     */
-    p: number;
-    /**
-     * Country code 2 chars
-     */
-    cc?: string;
-    /**
-     * Entity links
-     */
-    ls?: IPlainObject<KeyringEntityLink>;
-}
+// export type KeyringEntity = {
+//     /**
+//      * Names joined by a |
+//      */
+//     n: string;
+//     /**
+//      * Entity type: "H" | "P" | "O" | "E" | "L"
+//      */
+//     tp: string;
+//     /**
+//      * Entity popularity
+//      */
+//     p: number;
+//     /**
+//      * Country code 2 chars
+//      */
+//     cc?: string;
+//     /**
+//      * Entity links
+//      */
+//     ls?: IPlainObject<KeyringEntityLink>;
+// }
 
 export const ENTITY_PROPS = {
     instanceOf: 'P31',

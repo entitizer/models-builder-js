@@ -11,7 +11,7 @@ const atonic = require('atonic');
 
 export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity {
     // debug('wikiEntityToEntity:', lang, wikiEntity);
-    const entity = Entity.create();
+    const entity: Entity = {};
     entity.lang = lang.toLowerCase();
     entity.wikiId = wikiEntity.id;
     entity.type = getEntityType(wikiEntity);

@@ -14,7 +14,7 @@ describe('object size', function () {
                 const wikiEntity = entities[0];
                 const entity = EntityBuilder.fromWikiEntity(wikiEntity, lang);
                 const wikiEntitySize = sizeof(wikiEntity);
-                const entitySize = sizeof(entity.toJSON());
+                const entitySize = sizeof(entity);
 
                 console.log('wikiEntitySize: ', wikiEntitySize / 1000, 'KB');
                 console.log('entitySize: ', entitySize / 1000, 'KB');
