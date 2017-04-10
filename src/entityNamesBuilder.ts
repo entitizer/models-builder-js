@@ -25,7 +25,7 @@ export function filterNames(names: string[]): string[] {
     const keys = {};
     return names.filter(name => {
         name = formatUniqueName(name);
-        if (keys[name]) {
+        if (!name || name.length < 2 || keys[name]) {
             return false;
         }
         keys[name] = true;
