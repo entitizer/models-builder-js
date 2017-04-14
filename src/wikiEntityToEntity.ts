@@ -21,7 +21,7 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     }
     if (wikiEntity.types) {
         entity.types = _.uniq(wikiEntity.types.filter(item => !/:(Thing|Agent)$/.test(item)));
-        entity.types = _.uniq(entity.types.map(type => type.split(':')[0]));
+        entity.types = _.uniq(entity.types.map(type => type.split(':')[1]));
     }
     entity.name = wikiEntity.label;
     entity.description = wikiEntity.description;
