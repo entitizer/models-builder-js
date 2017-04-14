@@ -1,7 +1,7 @@
 
 // const debug = require('debug')('models-builder');
 import { WikiEntity, WikidataPropertyValue } from 'wiki-entity';
-import { Entity } from 'entitizer.models';
+import { Entity, EntityTypes } from 'entitizer.models';
 import { getEntityType } from './getEntityType';
 import { getEntityType as getEntityInstanceType } from './getEntityInstanceType';
 import * as _ from 'lodash';
@@ -17,6 +17,7 @@ export function wikiEntityToEntity(wikiEntity: WikiEntity, lang: string): Entity
     entity.type = getEntityType(wikiEntity);
     if (!entity.type) {
         entity.type = getEntityInstanceType(wikiEntity);
+        entity.type = entity.type || EntityTypes.CONCEPT;
     }
     if (wikiEntity.types) {
         entity.types = _.uniq(wikiEntity.types.filter(item => !/:(Thing|Agent)$/.test(item)));
