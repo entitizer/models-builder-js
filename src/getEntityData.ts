@@ -243,6 +243,28 @@ const ENTITY_DATA_PROPS: IPlainObject<string[]> = {
         'P856',
         // Quora topic ID
         'P3417'
+    ],
+    // Concept
+    C: [
+        // instance of
+        'P31',
+        // image
+        'P18',
+        // logo image
+        'P154',
+
+        // Twitter username
+        'P2002',
+        // Instagram username
+        'P2003',
+        // Facebook ID
+        'P2013',
+        // YouTube channel ID
+        'P2397',
+        // official website
+        'P856',
+        // Quora topic ID
+        'P3417'
     ]
 };
 
